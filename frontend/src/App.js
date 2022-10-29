@@ -1,7 +1,9 @@
 import React from "react";
 import { Container} from "@material-ui/core";
 import {BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Home from "./components/Home/Home";
+// import Home from "./components/Home/Home";
+import Starting from "./components/Starting/Starting";
+import PicGame from "./components/PicGame/PicGame";
 
 
 const App = () => {
@@ -10,7 +12,8 @@ const App = () => {
         <BrowserRouter>
             <Container maxWidth='xl'>
                 <Routes>
-                    <Route path='/' exact element={<Home/>}></Route>
+                    <Route path='/' exact element={<Starting/>}></Route>
+                    <Route path='/PicGame' exact element={<PicGame/>}></Route>
                 </Routes>
             </Container>
         </BrowserRouter>

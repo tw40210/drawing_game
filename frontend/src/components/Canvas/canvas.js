@@ -42,6 +42,10 @@ const Canvas = ({width, height}) => {
         localStorage.setItem("canvasImg", canvasRef.current.toDataURL());
     };
 
+    const handleSubmit = ()=>{
+        localStorage.setItem("canvasImg", canvasRef.current.toDataURL());
+    };
+
     const handleLoadCtx = ()=>{
         const dataURL = localStorage.getItem(canvasName);
         img.src = dataURL;

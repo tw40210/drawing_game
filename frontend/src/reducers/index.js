@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
-import posts from './posts'
+import game from './game'
 
 
 export default combineReducers({
-    posts
+    game
 });

@@ -23,7 +23,7 @@ class PicGame:
             "round": 0
         }
 
-        self.waiting_list = []
+        self.waiting_list = {}
         self.label_per_pic = label_per_pic
         self._set_game_start(players)
 
@@ -36,21 +36,27 @@ class PicGame:
                 tags.append(sub_label_set.pop())
             player_data = Player(name=player, id=idx).data
             self.data["players"].append(player_data)
+            self.data["pics"].append('')
             self.data["player_tags"][player] = tags
 
-    def _update_pic(self):
-        self.data["pics"] = self.waiting_list
-        self.waiting_list = []
+    def _update(self):
+        for idx, player in enumerate(self.data["players"]):
+
+            self.data["pics"][idx] = self.waiting_list[player["name"]]
+        self.data["round"] += 1
+        self.waiting_list = {}
 
     def submit_pic(self, id, pic):
-        self.waiting_list.append((id, pic))
+        self.waiting_list[id]=pic
+        return self.data["round"]
 
-    def check_next_turn(self):
-        if len(self.waiting_list) == (self.data["players"]):
-            return self.fetch_game()
+    def check_next_turn(self, round):
+        if len(self.waiting_list) == len(self.data["players"]) or self.data["round"]!=round:
+            return self.fetch_game(round)
         else:
             return None
 
-    def fetch_game(self):
-        self._update_pic()
+    def fetch_game(self, round):
+        if round==self.data["round"]:
+            self._update()
         return self.data

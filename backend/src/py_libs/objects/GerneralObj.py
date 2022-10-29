@@ -1,25 +1,34 @@
-import picGameObj
+from .picGameObj import PicGame
+
 
 class GamingRoomDisplay:
     def __init__(self):
-        self.games={}
-        self.id=0
+        self.waiting_games = {}
+        self.running_games = {}
+        self.wait_id = 0
+        self.run_id = 0
 
     def create_room(self):
-        self.games[self.id]=GamingRoom(room_id=self.id)
-        self.id+=1
-        return self.id-1
+        self.waiting_games[self.wait_id] = GamingRoom(room_id=self.wait_id)
+        self.wait_id += 1
+        return self.wait_id - 1
+
     def join_room(self, room_id):
-        if room_id in self.games:
-            return self.games[room_id].join()
+        if room_id in self.waiting_games:
+            return self.waiting_games[room_id].join()
         else:
-            raise Exception(f"Room {self.room_id} can not be found!")
+            raise Exception(f"Room {room_id} can not be found!")
 
     def start_room(self, room_id):
-        if room_id in self.games:
-            return self.games[room_id].start()
+        if room_id in self.waiting_games:
+            gameObj = self.waiting_games[room_id].start()
+            self.running_games[self.run_id] = gameObj
+            self.wait_id += 1
+            return self.wait_id - 1
+
         else:
-            raise Exception(f"Room {self.room_id} can not be found!")
+            raise Exception(f"Room {room_id} can not be found!")
+
 
 class GamingRoom:
     def __init__(self, room_id, max_player=3, game_type="PicGame"):
@@ -36,8 +45,8 @@ class GamingRoom:
             raise Exception(f"Room {self.room_id} has been full!")
 
     def start(self):
-        return self.get_gameObj()
+        return self._get_gameObj()
 
-    def get_gameObj(self):
+    def _get_gameObj(self):
         if self.game_type == "PicGame":
-            return picGameObj.PicGame(self.players)
+            return PicGame(self.players)
