@@ -5,6 +5,7 @@ label_set = [
 ]
 
 
+
 class Player:
     def __init__(self, name, id):
         self.data = {
@@ -41,22 +42,21 @@ class PicGame:
 
     def _update(self):
         for idx, player in enumerate(self.data["players"]):
-
             self.data["pics"][idx] = self.waiting_list[player["name"]]
         self.data["round"] += 1
         self.waiting_list = {}
 
-    def submit_pic(self, id, pic):
-        self.waiting_list[id]=pic
+    def submit_pic(self, playerName, pic):
+        self.waiting_list[playerName] = pic
         return self.data["round"]
 
     def check_next_turn(self, round):
-        if len(self.waiting_list) == len(self.data["players"]) or self.data["round"]!=round:
+        if len(self.waiting_list) == len(self.data["players"]) or self.data["round"] != round:
             return self.fetch_game(round)
         else:
-            return None
+            return -1
 
     def fetch_game(self, round):
-        if round==self.data["round"]:
+        if round == self.data["round"]:
             self._update()
         return self.data

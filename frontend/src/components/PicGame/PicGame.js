@@ -7,16 +7,8 @@ import Canvas from "../Canvas/canvas";
 
 const PicGame = () => {
     const user = JSON.parse(localStorage.getItem('profile'))
-    const game = useSelector((state) => state.game);
     const classes = useStyles()
-    console.log(game);
 
-    const clear = ()=>{
-
-    }
-    const handleSubmit = ()=>{
-
-    }
 
     return(
         <Grow in>

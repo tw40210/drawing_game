@@ -12,18 +12,15 @@ cur_game_obj = None
 
 
 @router.get("/SubmitPic")
-def submit_pic(player: str, label: str, pic: str):
-    res = cur_game_obj.submit_pic(player, pic)
+def submit_pic(room: str, playerName: str, picData: str):
+    res = cur_game_obj.submit_pic(playerName, picData)
     return {"data":res}
 
 @router.get("/CheckNextRound")
 async def check_next(round: str):
     round = int(round)
     res = cur_game_obj.check_next_turn(round)
-    while res is None:
-        await asyncio.sleep(0.5)
-        res = cur_game_obj.check_next_turn(round)
-        logging.info(res)
+
     return {"data":res}
 
 @router.get("/CreateRoom")
@@ -55,7 +52,7 @@ async def simple_start():
         cur_game_obj = simple_room.start()
         simple_start_flag=True
 
-    return {"status": 1, "data":cur_game_obj.data}
+    return {"status": 1, "gameStatus":cur_game_obj.data}
 @router.get("/SimpleReset")
 async def simple_start():
     global cur_game_obj

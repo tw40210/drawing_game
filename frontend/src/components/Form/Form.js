@@ -18,11 +18,9 @@ const Form = () => {
         return;
         }
         const file = e.target.files[0];
-        console.log(e.target.files)
         const { name } = file;
         setFilename(name);
         setCsvData([...csvData, file]);
-        console.log(csvData)
     };
 
 

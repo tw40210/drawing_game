@@ -1,21 +1,7 @@
 import {useEffect, useRef} from "react";
 
-// export const useCanvas =()=>{
-//     const canvasRef = useRef(null);
-//     console.log(canvasRef.current);
-//     const getCanvas = ()=>{
-//         console.log(canvasRef.current);
-//     }
-
-
-
-//     return getCanvas;
-
-// }
-
 
 export const useCanvas = (onDraw, canvasRef)=>{
-    // const canvasRef = useRef(null);
     const isDrawingRef = useRef(false);
 
     const mouseMoveListenerRef = useRef(null);
@@ -36,8 +22,6 @@ export const useCanvas = (onDraw, canvasRef)=>{
         if (!ref) return;
         if (canvasRef.current) canvasRef.current.removeEventListener("mousedown", mouseDownListenerRef.current)
         canvasRef.current = ref;
-        // console.log("CCCanvans:")
-        // console.log(canvasRef.current)
         initMouseListener();
         initMouseDownListener();
         initMouseUpListener();

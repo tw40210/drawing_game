@@ -1,11 +1,18 @@
-import React, { useRef} from "react";
-import useStyles from './styles';
-import { useCanvas } from "../../hooks/Hooks";
+import React, { useRef, useEffect} from "react";
 import {   Grow, Grid, Paper, Button } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+
+import { useCanvas } from "../../hooks/Hooks";
+import useStyles from './styles';
+import RadioButtonsGroup from "./radioGroup";
+import { updatePicGame } from "../../actions/game";
 
 const Canvas = ({width, height}) => {
     const classes = useStyles();
+    const game = useSelector((state) => state.game);
     const canvasRef = useRef(null);
+    const dispatch = useDispatch();
+
     let img = new Image();
     img.onload = function () {
         canvasRef.current.getContext('2d').clearRect(0, 0, width, height);
@@ -14,8 +21,17 @@ const Canvas = ({width, height}) => {
 
     const canvasName = "canvasImg";
 
+    useEffect(() => {
+        if (game.stat) {
+            const idx =(game.id + 1)%game.stat.players.length;
+            
+            if (game.stat.pics[idx]!==''){
+                img.src=game.stat.pics[idx];
+            }
+        }
+      }, [game])
+
     const onDraw = (ctx, point, prevPoint) =>{
-        // console.log(point, prevPoint);
         drawLine(point, prevPoint, 5, "#000000", ctx);
     }
 
@@ -35,42 +51,29 @@ const Canvas = ({width, height}) => {
 
     }
 
-    
-
     const setCanvasRef = useCanvas(onDraw, canvasRef)
-    const handleSaveCtx = ()=>{
-        localStorage.setItem("canvasImg", canvasRef.current.toDataURL());
-    };
 
     const handleSubmit = ()=>{
-        localStorage.setItem("canvasImg", canvasRef.current.toDataURL());
+        localStorage.setItem(canvasName, canvasRef.current.toDataURL());
+        const encodedUrl = encodeURIComponent(canvasRef.current.toDataURL())
+        dispatch(updatePicGame(game.stat.round, 0, game.playerName, encodedUrl))
     };
 
-    const handleLoadCtx = ()=>{
-        const dataURL = localStorage.getItem(canvasName);
-        img.src = dataURL;
-
-    };
-    
     return (
         <Paper>
             <Grow in>
-                <Grid container justifyContent="space-between"  spacing={3}  className={classes.gridContainer}>
-                    <Grid className={classes.grid} item >
+                <Grid container spacing={3} wrap="nowrap"  className={classes.gridContainer}>
+                    <Grid className={classes.radioGrid} item >
+                        <RadioButtonsGroup />
+                    </Grid>
+                    <Grid className={classes.canvasGrid} item >
                         <canvas width={`${width}px`} height={`${height}px`} className={classes.canvas} ref={setCanvasRef}/>
+                        <Button style = {{marginLeft: 'auto'}} onClick={handleSubmit}>Submit</Button>
                     </Grid>
-                    <Grid className={classes.grid} item >
-                        <Button onClick={handleSaveCtx}>SAVE</Button>
-                    </Grid>
-                    <Grid className={classes.grid} item >
-                        <Button onClick={handleLoadCtx}>LOAD</Button>
-                    </Grid>
+
                 </Grid>
             </Grow>
         </Paper>
-        
-
-
     )
 }
 

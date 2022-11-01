@@ -7,6 +7,7 @@ import { startGame, joinGame } from "../../actions/game";
 import useStyles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { sleep } from "../../utils/utils";
 
 const Starting = () => {
     // const user = JSON.parse(localStorage.getItem('profile'))
@@ -15,45 +16,30 @@ const Starting = () => {
     const dispatch = useDispatch();
     const [playerName, setPlayerName] = useState('')
 
-    function sleep(time) {
-        return new Promise(resolve => setTimeout(resolve, time));
-    }
 
     const handleJoin=async () =>{
         dispatch(joinGame(playerName))
-        // let obj =await SimpleJoin(playerName);
-        // console.log(obj);
         await handleCheck();
     }
 
     const handleCheck= async () =>{
         
-
-        // console.log("This is SimpleJoin: ", obj)
         let obj = await SimpleCheck();
         while(!obj.data.status){
-            console.log("This is SimpleJoin: ", obj.data.status)
             obj = await SimpleCheck();
             await sleep(1000);
-            // console.log("This is SimpleJoin: ", obj.data.status)
         }
-        console.log("This is SimpleJoin: ", obj.data.status)
         dispatch(startGame());
         navigate(`/PicGame`);
-        // Navigate
     }
 
     const handleStart= async () =>{
         dispatch(startGame());
         
-
-        // const {status} = await SimpleStart()
-        // console.log("This is SimpleStart: ", status)
     }
 
     const handleReset= async () =>{
         const {status} = await SimpleReset()
-        console.log("This is SimpleReset: ", status)
     }
 
 
