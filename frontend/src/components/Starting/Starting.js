@@ -45,22 +45,37 @@ const Starting = () => {
 
 
     return(
-        <Grow in>
-            <Container maxWidth="xl" >
+        <Container maxWidth="xl" >
             <Grid container  spacing={3}  className={classes.gridContainer}>
                 <Grid className={classes.grid} item xs={12} sm={6} md={4}>
-                    <Typography variant="h6">{"Player Name"}</Typography>
-                    <TextField name="playerName" variant="outlined" label="PlayerName" fullWidth value={playerName} onChange={(e)=>{setPlayerName(e.target.value)}}/>
+                    <div className={classes.room}>
+                        <Typography variant="h6">{"Player Name"}</Typography>
+                        <TextField name="playerName" variant="outlined" label="PlayerName" fullWidth value={playerName} onChange={(e)=>{setPlayerName(e.target.value)}}/>
+                        <div className={classes.buttonRow}>
+                            <Button className={classes.Buttons} variant="contained" color="primary" onClick={handleStart}>Start</Button>
+                            <Button className={classes.Buttons} variant="contained" color="secondary" onClick={handleJoin}>Join</Button>
+                            <Button className={classes.Buttons} variant="contained" color="secondary" onClick={handleReset}>Reset</Button>
+
+                        </div>
+                    </div>
+                    <div className={classes.room}>
+                        <Typography variant="h6">{"Create Room"}</Typography>
+                        <TextField name="playerName" variant="outlined" label="PlayerName" fullWidth value={playerName} onChange={(e)=>{setPlayerName(e.target.value)}}/>
+                        <div className={classes.buttonRow}>
+                            <Button className={classes.Buttons} variant="contained" color="primary" onClick={handleStart}>Start</Button>
+                            <Button className={classes.Buttons} variant="contained" color="secondary" onClick={handleJoin}>Cancel</Button>
+
+                        </div>
+                    </div>
+
+
                 </Grid>
                 <Grid className={classes.grid} item xs={12} sm={6} md={4}>
-                    <Button className={classes.Buttons} variant="contained" color="primary" onClick={handleStart}>Start</Button>
-                    <Button className={classes.Buttons} variant="contained" color="secondary" onClick={handleJoin}>Join</Button>
-                    <Button className={classes.Buttons} variant="contained" color="secondary" onClick={handleReset}>Reset</Button>
+                    <Typography variant="h6">{"Roommates:"}</Typography>
                 </Grid>
             </Grid>
                 
-            </Container>
-        </Grow>
+        </Container>
 
         
 

@@ -60,19 +60,21 @@ const Canvas = ({width, height}) => {
     };
 
     return (
-        <Paper>
-            <Grow in>
-                <Grid container spacing={3} wrap="nowrap"  className={classes.gridContainer}>
-                    <Grid className={classes.radioGrid} item >
-                        <RadioButtonsGroup />
-                    </Grid>
-                    <Grid className={classes.canvasGrid} item >
-                        <canvas width={`${width}px`} height={`${height}px`} className={classes.canvas} ref={setCanvasRef}/>
-                        <Button style = {{marginLeft: 'auto'}} onClick={handleSubmit}>Submit</Button>
-                    </Grid>
-
+        <Paper width="50%">
+            <Grid container spacing={3} wrap="nowrap"  className={classes.gridContainer}>
+                <Grid className={classes.radioGrid} item >
+                    <RadioButtonsGroup />
                 </Grid>
-            </Grow>
+                <Grid className={classes.canvasGrid} item >
+                    <canvas width={`${width}px`} height={`${height}px`} className={classes.canvas} ref={setCanvasRef}/>
+                    
+                </Grid>
+                <Grid className={classes.buttonGrid} >
+                    <Button style = {{marginLeft: 'auto'}} onClick={handleSubmit} variant="contained" color="primary">Submit</Button>
+                </Grid>
+                
+
+            </Grid>
         </Paper>
     )
 }

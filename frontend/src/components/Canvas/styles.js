@@ -8,7 +8,7 @@ export default makeStyles((theme) => ({
   },
   gridContainer: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     flexDirection: 'row',
     
   },
@@ -17,7 +17,19 @@ export default makeStyles((theme) => ({
   },
   canvasGrid: {
     margin: '20px',
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignContent: 'center'
     
 
+  },
+  buttonGrid: {
+    margin: '20px',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    flexDirection: 'column',
+    paddingRight: '35px',
+    paddingBottom: '12px'
   }
 }));

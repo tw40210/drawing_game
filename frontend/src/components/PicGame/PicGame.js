@@ -11,16 +11,21 @@ const PicGame = () => {
 
 
     return(
-        <Grow in>
-            <Container maxWidth="xl" >
+        <Container maxWidth="xl" >
             <Grid container  spacing={3}  className={classes.gridContainer}>
-                <Grid className={classes.grid} item xs={12} sm={6} md={4}>
+                <Grid className={classes.titleGrid} item>
+                    <Typography variant="h3" >Play Board</Typography>
+                </Grid>
+                <Grid className={classes.grid} item >
                     <Canvas width={600} height={400} />
+                </Grid>
+                <Grid className={classes.labelGrid} item >
+                    <Typography fullWidth>Label:</Typography>
                 </Grid>
             </Grid>
                 
-            </Container>
-        </Grow>
+        </Container>
+        
 
 
         // </Container>
