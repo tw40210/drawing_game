@@ -10,6 +10,9 @@ simple_room = GerneralObj.GamingRoom(0)
 simple_start_flag = False
 cur_game_obj = None
 
+@router.get("/")
+def test_index():
+    return {"data":"test OK!"}
 
 @router.get("/SubmitPic")
 def submit_pic(room: str, playerName: str, picData: str):

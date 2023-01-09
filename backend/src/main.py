@@ -24,4 +24,4 @@ app.include_router(
 )
 
 if __name__ == '__main__':
-    uvicorn.run("src.main:app", port=5000, log_level="info")
+    uvicorn.run("src.main:app", port=5000, host="0.0.0.0", log_level="info")
